@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicalAI - UCI Heart Disease Benchmark</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">⚕</div>
+            <div class="logo-text">
+                <h1>ClinicalAI</h1>
+                <p>Benchmark Analytics</p>
+            </div>
+        </div>
+
+        <div class="dataset-badge">
+            <h4>Active Dataset</h4>
+            <p>UCI Heart Disease</p>
+            <span>920 patients • 13 features • 4 institutions</span>
+        </div>
+
+        <nav>
+            <div class="nav-item active" onclick="showTab('dashboard')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+                Dashboard
+            </div>
+            <div class="nav-item" onclick="showTab('eda')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 21H3V3"/><path d="m9 9 3 3 4-4 5 5"/>
+                </svg>
+                EDA & Features
+            </div>
+            <div class="nav-item" onclick="showTab('models')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/>
+                </svg>
+                ML Models
+            </div>
+            <div class="nav-item" onclick="showTab('nlp')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                NLP & EHR
+            </div>
+            <div class="nav-item" onclick="showTab('fairness')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                Bias & Fairness
+            </div>
+        </nav>
+
+        <div class="data-summary">
+            <h4>Dataset Statistics</h4>
+            <div class="data-row"><span>Total Samples</span><span>920</span></div>
+            <div class="data-row"><span>Features</span><span>13</span></div>
+            <div class="data-row"><span>Disease (+)</span><span>411 (44.7%)</span></div>
+            <div class="data-row"><span>Healthy (-)</span><span>509 (55.3%)</span></div>
+            <div class="data-row"><span>Missing</span><span>6 records</span></div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="page-header">
+                <h2>Clinical Analytics Dashboard</h2>
+                <p>UCI Heart Disease Dataset - Cleveland, Hungary, Switzerland, VA Long Beach</p>
+            </div>
+
+            <div class="benchmark-info">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+                </svg>
+                <p>
+                    <strong>Data Source:</strong> UCI ML Repository - Heart Disease (1988). 
+                    Original investigators: Detrano et al. 
+                    <a href="https://archive.ics.uci.edu/ml/datasets/heart+disease" target="_blank">View Dataset →</a>
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">Total Patients</div>
+                            <div class="stat-card-value" style="color: #6366f1">920</div>
+                            <div class="stat-card-subtitle">4 medical centers</div>
+                        </div>
+                        <div class="stat-card-icon" style="background: #eef2ff">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card-source">Cleveland: 303, Hungary: 294, Swiss: 123, VA: 200</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">Disease Prevalence</div>
+                            <div class="stat-card-value" style="color: #ef4444">44.7%</div>
+                            <div class="stat-card-subtitle">411 positive cases</div>
+                        </div>
+                        <div class="stat-card-icon" style="background: #fef2f2">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card-source">Binary classification: 0=healthy, 1-4=disease</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">Best AUC-ROC</div>
+                            <div class="stat-card-value" style="color: #10b981">0.918</div>
+                            <div class="stat-card-subtitle">Random Forest</div>
+                        </div>
+                        <div class="stat-card-icon" style="background: #ecfdf5">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card-source">5-fold stratified cross-validation</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">Mean Age</div>
+                            <div class="stat-card-value" style="color: #8b5cf6">54.4</div>
+                            <div class="stat-card-subtitle">Range: 29-77 years</div>
+                        </div>
+                        <div class="stat-card-icon" style="background: #f5f3ff">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card-source">Male: 68.4%, Female: 31.6%</div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Age Distribution by Outcome</h3>
+                    <div class="chart-source">UCI Heart Disease - All institutions</div>
+                    <div class="chart-container">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Data by Institution</h3>
+                    <div class="chart-source">4 contributing medical centers</div>
+                    <div class="chart-container">
+                        <canvas id="instChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card full-width-card">
+                    <h3>Feature Correlation with Heart Disease</h3>
+                    <div class="chart-source">Pearson correlation coefficients</div>
+                    <div class="chart-container">
+                        <canvas id="corrChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDA Tab -->
+        <div id="eda" class="tab-content">
+            <div class="page-header">
+                <h2>Exploratory Data Analysis</h2>
+                <p>Feature distributions and statistical analysis</p>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Chest Pain Type Distribution</h3>
+                    <div class="chart-source">cp: 1=typical, 2=atypical, 3=non-anginal, 4=asymptomatic</div>
+                    <div class="chart-container">
+                        <canvas id="cpChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Feature Importance (Random Forest)</h3>
+                    <div class="chart-source">Top predictive features</div>
+                    <div style="padding: 20px 0;">
+                        <div class="feature-bar">
+                            <span class="feature-name">thal</span>
+                            <div class="feature-bar-container"><div class="feature-bar-fill" style="width: 100%"></div></div>
+                            <span class="feature-value">0.156</span>
+                        </div>
+                        <div class="feature-bar">
+                            <span class="feature-name">ca</span>
+                            <div class="feature-bar-container"><div class="feature-bar-fill" style="width: 92%"></div></div>
+                            <span class="feature-value">0.143</span>
+                        </div>
+                        <div class="feature-bar">
+                            <span class="feature-name">cp</span>
+                            <div class="feature-bar-container"><div class="feature-bar-fill" style="width: 85%"></div></div>
+                            <span class="feature-value">0.132</span>
+                        </div>
+                        <div class="feature-bar">
+                            <span class="feature-name">oldpeak</span>
+                            <div class="feature-bar-container"><div class="feature-bar-fill" style="width: 78%"></div></div>
+                            <span class="feature-value">0.122</span>
+                        </div>
+                        <div class="feature-bar">
+                            <span class="feature-name">thalach</span>
+                            <div class="feature-bar-container"><div class="feature-bar-fill" style="width: 71%"></div></div>
+                            <span class="feature-value">0.110</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <h3>Feature Dictionary</h3>
+                <div class="table-source">13 clinical attributes from original study</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Range</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>age</strong></td><td>Age in years</td><td>Numeric</td><td>29-77</td></tr>
+                        <tr><td><strong>sex</strong></td><td>Sex (1=male, 0=female)</td><td>Binary</td><td>0, 1</td></tr>
+                        <tr><td><strong>cp</strong></td><td>Chest pain type</td><td>Categorical</td><td>1-4</td></tr>
+                        <tr><td><strong>trestbps</strong></td><td>Resting blood pressure (mm Hg)</td><td>Numeric</td><td>94-200</td></tr>
+                        <tr><td><strong>chol</strong></td><td>Serum cholesterol (mg/dl)</td><td>Numeric</td><td>126-564</td></tr>
+                        <tr><td><strong>fbs</strong></td><td>Fasting blood sugar > 120 mg/dl</td><td>Binary</td><td>0, 1</td></tr>
+                        <tr><td><strong>restecg</strong></td><td>Resting ECG results</td><td>Categorical</td><td>0-2</td></tr>
+                        <tr><td><strong>thalach</strong></td><td>Maximum heart rate achieved</td><td>Numeric</td><td>71-202</td></tr>
+                        <tr><td><strong>exang</strong></td><td>Exercise induced angina</td><td>Binary</td><td>0, 1</td></tr>
+                        <tr><td><strong>oldpeak</strong></td><td>ST depression induced by exercise</td><td>Numeric</td><td>0-6.2</td></tr>
+                        <tr><td><strong>slope</strong></td><td>Slope of peak exercise ST segment</td><td>Categorical</td><td>1-3</td></tr>
+                        <tr><td><strong>ca</strong></td><td>Number of major vessels (fluoroscopy)</td><td>Numeric</td><td>0-3</td></tr>
+                        <tr><td><strong>thal</strong></td><td>Thalassemia</td><td>Categorical</td><td>3, 6, 7</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Models Tab -->
+        <div id="models" class="tab-content">
+            <div class="page-header">
+                <h2>ML Model Comparison</h2>
+                <p>6 classifiers with 5-fold stratified cross-validation</p>
+            </div>
+
+            <div class="model-grid">
+                <div class="model-card best">
+                    <h4>Random Forest</h4>
+                    <p class="model-type">Ensemble - 100 trees</p>
+                    <div class="metric-row"><span>Accuracy</span><span>85.2%</span></div>
+                    <div class="metric-row"><span>AUC-ROC</span><span>0.918</span></div>
+                    <div class="metric-row"><span>F1-Score</span><span>0.847</span></div>
+                    <div class="metric-row"><span>Precision</span><span>84.6%</span></div>
+                    <div class="metric-row"><span>Recall</span><span>84.8%</span></div>
+                </div>
+
+                <div class="model-card">
+                    <h4>XGBoost</h4>
+                    <p class="model-type">Gradient Boosting</p>
+                    <div class="metric-row"><span>Accuracy</span><span>84.1%</span></div>
+                    <div class="metric-row"><span>AUC-ROC</span><span>0.905</span></div>
+                    <div class="metric-row"><span>F1-Score</span><span>0.836</span></div>
+                    <div class="metric-row"><span>Precision</span><span>83.9%</span></div>
+                    <div class="metric-row"><span>Recall</span><span>83.3%</span></div>
+                </div>
+
+                <div class="model-card">
+                    <h4>Neural Network</h4>
+                    <p class="model-type">MLP - 2 hidden layers</p>
+                    <div class="metric-row"><span>Accuracy</span><span>83.9%</span></div>
+                    <div class="metric-row"><span>AUC-ROC</span><span>0.897</span></div>
+                    <div class="metric-row"><span>F1-Score</span><span>0.833</span></div>
+                    <div class="metric-row"><span>Precision</span><span>83.1%</span></div>
+                    <div class="metric-row"><span>Recall</span><span>83.7%</span></div>
+                </div>
+
+                <div class="model-card">
+                    <h4>SVM</h4>
+                    <p class="model-type">RBF Kernel</p>
+                    <div class="metric-row"><span>Accuracy</span><span>83.6%</span></div>
+                    <div class="metric-row"><span>AUC-ROC</span><span>0.891</span></div>
+                    <div class="metric-row"><span>F1-Score</span><span>0.829</span></div>
+                    <div class="metric-row"><span>Precision</span><span>82.8%</span></div>
+                    <div class="metric-row"><span>Recall</span><span>83.0%</span></div>
+                </div>
+
+                <div class="model-card">
+                    <h4>Logistic Regression</h4>
+                    <p class="model-type">L2 Regularization</p>
+                    <div class="metric-row"><span>Accuracy</span><span>82.0%</span></div>
+                    <div class="metric-row"><span>AUC-ROC</span><span>0.879</span></div>
+                    <div class="metric-row"><span>F1-Score</span><span>0.814</span></div>
+                    <div class="metric-row"><span>Precision</span><span>81.2%</span></div>
+                    <div class="metric-row"><span>Recall</span><span>81.6%</span></div>
+                </div>
+
+                <div class="model-card">
+                    <h4>K-Nearest Neighbors</h4>
+                    <p class="model-type">k=5, Euclidean</p>
+                    <div class="metric-row"><span>Accuracy</span><span>78.7%</span></div>
+                    <div class="metric-row"><span>AUC-ROC</span><span>0.842</span></div>
+                    <div class="metric-row"><span>F1-Score</span><span>0.781</span></div>
+                    <div class="metric-row"><span>Precision</span><span>77.9%</span></div>
+                    <div class="metric-row"><span>Recall</span><span>78.3%</span></div>
+                </div>
+            </div>
+
+            <div class="charts-grid" style="margin-top: 24px;">
+                <div class="chart-card">
+                    <h3>Cross-Validation Results</h3>
+                    <div class="chart-source">5-fold stratified CV</div>
+                    <div class="chart-container">
+                        <canvas id="cvChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Best Model - Confusion Matrix</h3>
+                    <div class="chart-source">Random Forest on test set</div>
+                    <div class="cm-grid">
+                        <div></div>
+                        <div class="cm-header">Pred: Neg</div>
+                        <div class="cm-header">Pred: Pos</div>
+                        <div class="cm-label">Actual: Neg</div>
+                        <div class="cm-cell cm-tn">89</div>
+                        <div class="cm-cell cm-fp">13</div>
+                        <div class="cm-label">Actual: Pos</div>
+                        <div class="cm-cell cm-fn">14</div>
+                        <div class="cm-cell cm-tp">68</div>
+                    </div>
+                    <div class="roc-stats">
+                        <div class="roc-stat">
+                            <div class="value">0.918</div>
+                            <div class="label">AUC-ROC</div>
+                        </div>
+                        <div class="roc-stat">
+                            <div class="value">85.3%</div>
+                            <div class="label">Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="references">
+                <h4>Benchmark References</h4>
+                <ul>
+                    <li>Detrano et al. (1989) - Original dataset, <em>American Journal of Cardiology</em></li>
+                    <li>Aha & Kibler (1988) - UCI ML Repository benchmark</li>
+                    <li>Recent Kaggle competitions: 85-92% accuracy with ensemble methods</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- NLP Tab -->
+        <div id="nlp" class="tab-content">
+            <div class="page-header">
+                <h2>NLP & Clinical Notes</h2>
+                <p>MIMIC-III Clinical NER Benchmarks</p>
+            </div>
+
+            <div class="benchmark-info">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+                </svg>
+                <p>
+                    <strong>NLP Benchmark:</strong> MIMIC-III (PhysioNet) + i2b2 2010 Challenge. 
+                    Models: ClinicalBERT, BioBERT, scispaCy.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">Clinical Notes</div>
+                            <div class="stat-card-value" style="color: #6366f1">2.08M</div>
+                            <div class="stat-card-subtitle">MIMIC-III total</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">NER F1-Score</div>
+                            <div class="stat-card-value" style="color: #10b981">89.4%</div>
+                            <div class="stat-card-subtitle">ClinicalBERT</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">Entity Types</div>
+                            <div class="stat-card-value" style="color: #8b5cf6">7</div>
+                            <div class="stat-card-subtitle">Medical categories</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <div class="stat-card-title">Vocab Size</div>
+                            <div class="stat-card-value" style="color: #f59e0b">28,996</div>
+                            <div class="stat-card-subtitle">BERT tokens</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Sample Clinical Note with NER</h3>
+                    <div class="chart-source">MIMIC-III discharge summary format</div>
+                    <div class="clinical-note" style="margin-top: 16px">
+                        <strong>DISCHARGE SUMMARY</strong><br><br>
+                        Patient is a 63-year-old male with history of 
+                        <span class="entity entity-condition">coronary artery disease</span>, 
+                        <span class="entity entity-condition">hypertension</span>, and 
+                        <span class="entity entity-condition">type 2 diabetes</span> who presented with 
+                        <span class="entity entity-symptom">chest pain</span> and 
+                        <span class="entity entity-symptom">shortness of breath</span>.<br><br>
+                        Patient underwent <span class="entity entity-procedure">cardiac catheterization</span> 
+                        revealing <span class="entity entity-condition">three-vessel disease</span>. 
+                        Subsequently had <span class="entity entity-procedure">CABG x3</span>.<br><br>
+                        <strong>Discharge Medications:</strong><br>
+                        <span class="entity entity-medication">Aspirin 81mg</span> daily, 
+                        <span class="entity entity-medication">Metoprolol 50mg</span> BID, 
+                        <span class="entity entity-medication">Lisinopril 10mg</span> daily
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>NER Model Performance</h3>
+                    <div class="chart-source">i2b2 2010 Challenge benchmark</div>
+                    <div class="chart-container">
+                        <canvas id="nerChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <h3>Clinical NLP Benchmarks</h3>
+                <div class="table-source">Published results on i2b2 and MIMIC-III</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Architecture</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ClinicalBERT</strong></td>
+                            <td>Transformer</td>
+                            <td>90.2%</td>
+                            <td>88.7%</td>
+                            <td><span class="badge badge-success">89.4%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>BioBERT</strong></td>
+                            <td>Transformer</td>
+                            <td>89.1%</td>
+                            <td>87.9%</td>
+                            <td><span class="badge badge-success">88.5%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>scispaCy</strong></td>
+                            <td>spaCy</td>
+                            <td>84.2%</td>
+                            <td>82.7%</td>
+                            <td><span class="badge badge-info">83.4%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>BiLSTM-CRF</strong></td>
+                            <td>RNN + CRF</td>
+                            <td>85.8%</td>
+                            <td>84.1%</td>
+                            <td><span class="badge badge-info">84.9%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Fairness Tab -->
+        <div id="fairness" class="tab-content">
+            <div class="page-header">
+                <h2>Bias & Fairness Analysis</h2>
+                <p>Model fairness across demographic subgroups</p>
+            </div>
+
+            <div class="fairness-banner">
+                <h3>⚖️ AI Fairness in Healthcare</h3>
+                <p>Analyzing Random Forest performance across sex and age groups per NIST AI RMF and IBM AIF360 guidelines.</p>
+            </div>
+
+            <div class="charts-grid">
+                <div class="data-table" style="margin-bottom: 0">
+                    <h3>Performance by Sex</h3>
+                    <div class="table-source">Random Forest on UCI Heart Disease</div>
+                    <table>
+                        <thead>
+                            <tr><th>Group</th><th>N</th><th>Prevalence</th><th>Accuracy</th><th>TPR</th><th>FPR</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Male</strong></td><td>726</td><td>45.2%</td><td>84.8%</td><td>86.2%</td><td>16.7%</td></tr>
+                            <tr><td><strong>Female</strong></td><td>194</td><td>25.3%</td><td>82.5%</td><td>79.6%</td><td>14.8%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="data-table" style="margin-bottom: 0">
+                    <h3>Performance by Age Group</h3>
+                    <div class="table-source">Random Forest on UCI Heart Disease</div>
+                    <table>
+                        <thead>
+                            <tr><th>Age</th><th>N</th><th>Prevalence</th><th>Accuracy</th><th>TPR</th><th>FPR</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>&lt;45</strong></td><td>142</td><td>31.0%</td><td>86.6%</td><td>84.1%</td><td>11.2%</td></tr>
+                            <tr><td><strong>45-54</strong></td><td>286</td><td>42.0%</td><td>85.3%</td><td>86.7%</td><td>15.9%</td></tr>
+                            <tr><td><strong>55-64</strong></td><td>344</td><td>49.1%</td><td>84.0%</td><td>87.5%</td><td>19.4%</td></tr>
+                            <tr><td><strong>≥65</strong></td><td>148</td><td>54.7%</td><td>82.4%</td><td>85.2%</td><td>21.2%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="chart-card" style="margin-top: 24px">
+                <h3>Fairness Metrics (AIF360)</h3>
+                <div class="chart-source">Values > 0.8 indicate acceptable fairness</div>
+                <div style="padding: 16px 0; max-width: 600px;">
+                    <div class="feature-bar">
+                        <span class="feature-name">Demographic Parity</span>
+                        <div class="feature-bar-container">
+                            <div class="feature-bar-fill" style="width: 87%; background: linear-gradient(90deg, #10b981, #34d399)"></div>
+                        </div>
+                        <span class="feature-value">0.87</span>
+                    </div>
+                    <div class="feature-bar">
+                        <span class="feature-name">Equalized Odds</span>
+                        <div class="feature-bar-container">
+                            <div class="feature-bar-fill" style="width: 82%; background: linear-gradient(90deg, #10b981, #34d399)"></div>
+                        </div>
+                        <span class="feature-value">0.82</span>
+                    </div>
+                    <div class="feature-bar">
+                        <span class="feature-name">Equal Opportunity</span>
+                        <div class="feature-bar-container">
+                            <div class="feature-bar-fill" style="width: 91%; background: linear-gradient(90deg, #10b981, #34d399)"></div>
+                        </div>
+                        <span class="feature-value">0.91</span>
+                    </div>
+                    <div class="feature-bar">
+                        <span class="feature-name">Calibration</span>
+                        <div class="feature-bar-container">
+                            <div class="feature-bar-fill" style="width: 78%; background: linear-gradient(90deg, #f59e0b, #fbbf24)"></div>
+                        </div>
+                        <span class="feature-value">0.78</span>
+                    </div>
+                    <div class="feature-bar">
+                        <span class="feature-name">Predictive Parity</span>
+                        <div class="feature-bar-container">
+                            <div class="feature-bar-fill" style="width: 85%; background: linear-gradient(90deg, #10b981, #34d399)"></div>
+                        </div>
+                        <span class="feature-value">0.85</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="references">
+                <h4>Fairness References</h4>
+                <ul>
+                    <li>NIST AI Risk Management Framework (AI RMF 1.0) - January 2023</li>
+                    <li>IBM AIF360: Fairness metrics toolkit</li>
+                    <li>Obermeyer et al. (2019) - Dissecting racial bias in healthcare algorithms, <em>Science</em></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,721 @@
+/* ========================================
+   ClinicalAI Dashboard - Main Styles
+   ======================================== */
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+}
+
+/* ========================================
+   Sidebar
+   ======================================== */
+.sidebar {
+    width: 260px;
+    background: white;
+    border-right: 1px solid #e2e8f0;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.logo-text h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.logo-text p {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+/* Dataset Badge */
+.dataset-badge {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.dataset-badge h4 {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #059669;
+    font-weight: 600;
+}
+
+.dataset-badge p {
+    font-size: 13px;
+    color: #047857;
+    font-weight: 600;
+}
+
+.dataset-badge span {
+    font-size: 11px;
+    color: #10b981;
+}
+
+/* Navigation */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 4px;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.nav-item:hover {
+    background: #f1f5f9;
+}
+
+.nav-item.active {
+    background: #eef2ff;
+    color: #6366f1;
+}
+
+.nav-item svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Data Summary */
+.data-summary {
+    margin-top: 24px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.data-summary h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 12px;
+}
+
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.data-row:last-child {
+    border-bottom: none;
+}
+
+.data-row span:first-child {
+    color: #64748b;
+}
+
+.data-row span:last-child {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* ========================================
+   Main Content
+   ======================================== */
+.main-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 32px;
+    overflow-y: auto;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.page-header p {
+    color: #64748b;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+/* Benchmark Info */
+.benchmark-info {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1px solid #93c5fd;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.benchmark-info svg {
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+.benchmark-info p {
+    font-size: 13px;
+    color: #1e40af;
+}
+
+.benchmark-info a {
+    color: #2563eb;
+    font-weight: 500;
+}
+
+/* ========================================
+   Stats Cards
+   ======================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.stat-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.stat-card-title {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.stat-card-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+.stat-card-subtitle {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+.stat-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card-source {
+    margin-top: 8px;
+    font-size: 10px;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* ========================================
+   Charts
+   ======================================== */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.chart-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.chart-card .chart-source {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+}
+
+.chart-container {
+    position: relative;
+    height: 280px;
+}
+
+.full-width-card {
+    grid-column: span 2;
+}
+
+/* ========================================
+   Tabs
+   ======================================== */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ========================================
+   Tables
+   ======================================== */
+.data-table {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #f1f5f9;
+    margin-bottom: 24px;
+    overflow-x: auto;
+}
+
+.data-table h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.data-table .table-source {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    font-weight: 600;
+    color: #475569;
+    border-bottom: 2px solid #e2e8f0;
+    background: #f8fafc;
+}
+
+td {
+    padding: 12px;
+    color: #1e293b;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+tr:hover {
+    background: #fafafa;
+}
+
+/* ========================================
+   Badges
+   ======================================== */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.badge-success {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.badge-danger {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.badge-info {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.badge-warning {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+/* ========================================
+   Feature Bars
+   ======================================== */
+.feature-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.feature-name {
+    width: 120px;
+    font-size: 12px;
+    color: #475569;
+    font-weight: 500;
+}
+
+.feature-bar-container {
+    flex: 1;
+    height: 24px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 12px;
+}
+
+.feature-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    border-radius: 4px;
+}
+
+.feature-value {
+    width: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: right;
+}
+
+/* ========================================
+   Model Cards
+   ======================================== */
+.model-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.model-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #f1f5f9;
+}
+
+.model-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.model-card.best {
+    border-color: #6366f1;
+    background: linear-gradient(135deg, #fafafe, #f5f3ff);
+}
+
+.model-card.best::before {
+    content: '★ Best Model';
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: #6366f1;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.model-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.model-card .model-type {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+}
+
+.metric-row:last-child {
+    border-bottom: none;
+}
+
+.metric-row span:first-child {
+    color: #64748b;
+}
+
+.metric-row span:last-child {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* ========================================
+   Confusion Matrix
+   ======================================== */
+.cm-grid {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 4px;
+    max-width: 280px;
+    margin: 20px auto;
+}
+
+.cm-cell {
+    padding: 14px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.cm-header {
+    font-size: 11px;
+    color: #64748b;
+    padding: 8px;
+    text-align: center;
+}
+
+.cm-label {
+    font-size: 11px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cm-tp {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.cm-tn {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.cm-fp {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.cm-fn {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ========================================
+   ROC Stats
+   ======================================== */
+.roc-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.roc-stat {
+    text-align: center;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.roc-stat .value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #6366f1;
+}
+
+.roc-stat .label {
+    font-size: 11px;
+    color: #64748b;
+}
+
+/* ========================================
+   Clinical Notes & NLP
+   ======================================== */
+.clinical-note {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #475569;
+    border-left: 4px solid #6366f1;
+}
+
+.entity {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.entity-condition {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.entity-symptom {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.entity-medication {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.entity-procedure {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* ========================================
+   Fairness Section
+   ======================================== */
+.fairness-banner {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 12px;
+    padding: 24px;
+    color: white;
+    margin-bottom: 24px;
+}
+
+.fairness-banner h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.fairness-banner p {
+    color: #c7d2fe;
+    font-size: 14px;
+}
+
+/* ========================================
+   References
+   ======================================== */
+.references {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 24px;
+}
+
+.references h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 12px;
+}
+
+.references ul {
+    list-style: none;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.references li {
+    padding: 6px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.references li:last-child {
+    border-bottom: none;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .model-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .full-width-card {
+        grid-column: span 1;
+    }
+    
+    .model-grid {
+        grid-template-columns: 1fr;
+    }
+}
