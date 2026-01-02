@@ -14,6 +14,10 @@ A modern, interactive dashboard for clinical AI benchmarking and healthcare anal
 
 ## 📸 Screenshots
 
+![Dashboard Preview](assets/images/dashboard-preview.gif)
+
+## 📸 Screenshots
+
 ![Dashboard Preview](assets/images/screen_1.png)
 
 ## ✨ Features
