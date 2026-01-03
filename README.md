@@ -55,7 +55,7 @@ clinical-ai-dashboard/
 
 ## 🚀 Quick Start
 
-1. **Clone the repository**
+1. **Clone the repository (Anaconda )**
    ```bash
    git clone https://github.com/your-username/clinical-ai-dashboard.git
    cd clinical-ai-dashboard
