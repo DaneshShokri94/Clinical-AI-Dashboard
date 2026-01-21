@@ -8,7 +8,7 @@
 
 A modern, interactive dashboard for clinical AI benchmarking and healthcare analytics. Built with vanilla HTML, CSS, and JavaScript.
 
-## 🖥️ Live Demo
+## Live Demo
 
 [View Live Demo →](https://daneshshokri94.github.io/Clinical-AI-Dashboard/)
 
