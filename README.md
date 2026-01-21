@@ -12,7 +12,7 @@ A modern, interactive dashboard for clinical AI benchmarking and healthcare anal
 
 [View Live Demo →](https://daneshshokri94.github.io/Clinical-AI-Dashboard/)
 
-## 📸 Screenshots
+## Screenshots
 
 ![Dashboard Preview](assets/images/dashboard-preview.gif)
 
